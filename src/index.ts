@@ -5,18 +5,19 @@ import colors from "colors";
 
 
 
-async function connectionDB() {
-    try {
-        await db.authenticate()
-        db.sync()
-        console.log(colors.america("Conexion estadounidense exitosa, America nunca se surra!"));
-    } catch (error) {
-        console.log(error);
-        console.log(colors.white.bgRed.bold("hubo un error al conectar"));
-    }
+// async function connectionDB() {
+//     try {
+//         await db.authenticate()
+//         db.sync()
+//         console.log(colors.america("Conexion estadounidense exitosa, America nunca se surra!"));
+//     } catch (error) {
+//         console.log(error);
+//         console.log(colors.white.bgRed.bold("hubo un error al conectar"));
+//     }
     
-}
-connectionDB()
+// }
+// connectionDB()
+
 //instancia el servidor
 const server = express()
 //leer datos de formularios

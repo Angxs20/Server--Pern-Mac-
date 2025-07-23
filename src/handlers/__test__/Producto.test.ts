@@ -1,4 +1,4 @@
-import request from 'supertest';
+const request = require('supertest');
 import server from '../../server';
 
 describe('POST /api/products', () => {
