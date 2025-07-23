@@ -1,0 +1,36 @@
+{
+  "name": "server-pern",
+  "version": "1.0.0",
+  "description": "Proyecto creado con stack MERN",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "serve": "nodemon --watch 'src/**/*.ts' --exec 'node--loader ts-node/esm' --no-warnings src/index.ts",
+    "test": "jest"
+  },
+  "author": "Alejandro Ang",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.1",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.0.3",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.1",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "color": "^5.0.0",
+    "colors": "^1.4.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "pg": "^8.16.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7",
+    "sequelize-typescript": "^2.1.6",
+    "supertest": "^7.1.4"
+  }
+}
