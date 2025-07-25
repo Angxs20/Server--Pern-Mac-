@@ -1,25 +1,17 @@
+// src/models/Producto.mo.ts
+import { Table, Column, Model, DataType, Default } from 'sequelize-typescript';
 
-import { Table,Column,  Model, DataType, Default  } from "sequelize-typescript";
+@Table({ tableName: 'products' })
+class Product extends Model {
+  @Column({ type: DataType.STRING(100) })
+  declare name: string;
 
-@Table({
-    tableName: 'products'
-})
+  @Column({ type: DataType.DECIMAL(10, 2) })
+  declare price: number;
 
-class products extends Model{
-    @Column({
-        type: DataType.STRING(100)
-    })
-     name: String
-
-    @Column({
-        type: DataType.DECIMAL(10,2)
-    })
-     price: number
-    @Default(true)
-    @Column({
-        type:DataType.BOOLEAN
-    })
-     availability: Boolean
+  @Default(true)
+  @Column({ type: DataType.BOOLEAN })
+  declare availability: boolean;
 }
 
-export default products
+export default Product;

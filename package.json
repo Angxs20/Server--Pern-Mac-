@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",
-    "serve": "nodemon --watch 'src/**/*.ts' --exec 'node--loader ts-node/esm' --no-warnings src/index.ts",
-    "test": "jest --detectOpenHandles"
+    "test" : "jest --detectOpenHandles",
+    "test:coverage" : "npm run pretest && jest --detectOpenHandles --coverage",
+    "pretest" : "ts-node ./src/data --clear"
   },
   "author": "Alejandro Ang",
   "license": "ISC",

@@ -1,166 +1,105 @@
-import {Request, Response} from 'express'
-import { error, log } from 'console';
-import products from '../models/Producto.mo';
-import {check, ExpressValidator, validationResult} from 'express-validator';
-import { errorMonitor } from 'events';
+// src/handlers/product.ts
+import { Request, Response } from 'express';
+import Product from '../models/Producto.mo';
 
 
-export const createProduct = async (req : Request, res : Response)=>{
-    /*
-    const product = new Product(req.body) product.save() console.log(req.body)
-    */
-   //validar nombre y precio
-
-   
-    // await check('name').notEmpty().withMessage('tonto te falto el nombre').run(req)
-    // await check('price')
-    // .notEmpty().withMessage('Falto el precio')
-    // .isNumeric().withMessage('El formato es invalid0')
-    // .custom((value)=> value > 0).withMessage('El valor no es aceptado en precio')
-    // .run(req)
-    
-    const product = await products.create(req.body)
-    res.json({data: product})
-    
-
-
-
-
-    }
-//Get Products
-export const getAllProducts = async (req:Request,res:Response )=>{
-    try {
-        const product = await products.findAll(
-            {
-                order:[
-                    ['price','DESC'] 
-                ]
-                
-            }
-        );
-        res.json({data: product})
-    } catch (error) {
-        console.log(error);
-    }
-
-    // const productos = await products.findAll()
-    // if(products.length === 0){
-    //     return res.status(404).json({error: "No hay productos"})
-    // }
-    // res.json({data:products})
-    // //res.send("Hola desde get all")
-    
+export const createProduct = async (req: Request, res: Response) => {
+  try {
+    const product = await Product.create(req.body);
+    return res.status(201).json(product);
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ error: 'Error al crear producto' });
+  }
 };
 
-//Get Product by ID
-export const getProductByID = async (req:Request,res:Response )=>{
-    try {
-        const {id} = req.params;
-        const product = await products.findByPk(id);
-        if(!product){
-            return res.status(404).json({
-                error: 'producto no encontrado'
-            })
-        }
-       res.json
-    } catch (error) {
-        console.log(error);
-        
-    }
 
-
-    // const {id} = req.params;
-    // const product = await products.findByPk(id)
-    // if(!product){
-    //     return res.status(404).json({error: "No existe el producto"})
-    // }
-    // res.json({data:product})
-    // //res.send("Hola desde get by id")
-    
-    
-}
-
-//UPDATE product
-export const updateProductByID = async (req:Request,res:Response )=>{
-
-    try {
-        const {id} = req.params;
-        const product = await products.findByPk(id);
-        if(!product){
-            return res.status(404).json({
-                error: 'producto no encontrado'
-            })
-        }
-          await product.update(req.body)
-          await product.save()  
-
-            res.json({data:product});
-      }catch(error){
-        console.log(error);
-      }
-    };
-
-
-    
-
-    // const {id} = req.params;
-    // const product = await products.findByPk(id)
-    // console.log(req.body)
-    // if(!product){
-    //     return res.status(404).json({error: "No existe el producto",  data: product})
-    // }
-    // //actualizar
-    // await product.update(req.body)
-    // res.json({data:product})
-    // //res.send("Hola desde put")
-    
-
-
-
-//Delete product
-export const deleteProductById = async (req:Request,res:Response )=>{
-    try {
-        const {id} = req.params;
-        const product = await products.findByPk(id);
-        if(!product){
-            return res.status(404).json({
-                error: 'producto no encontrado'
-            })
-        }
-        await product.destroy()
-        res.json({data: product});
-    } catch (error) {
-        console.log(error);
-    }
-
-
-    // const {id} = req.params;
-    // const product = await products.findByPk(id)
-    // if(!product){
-    //     return res.status(404).json({error: "No existe el producto"})
-    // }
-    // //borrar
-    // await product.destroy()
-    // res.json({data:product})
-    // //res.send("Hola desde delete")
-    
-    
+export const getAllProducts = async (_req: Request, res: Response) => {
+  try {
+    const products = await Product.findAll({
+      order: [['price', 'DESC']],
+    });
+    // 👉 los tests usan res.body.data como array
+    return res.json({ data: products });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Error al obtener productos' });
+  }
 };
 
-export const updateAvailabilty = async (req: Request, res: Response) => {
-    try {
-        const {id} = req.params;
-        const product = await products.findByPk(id);
-        if(!product){
-            return res.status(404).json({
-                error: 'producto no encontrado'
-            })
-        }
-        product.availability = !product.dataValues.availability;
-        await product.save()
-       res.json(`{data: product deleted id: ${id}}`);
-    } catch (error) {
-        console.log(error);
-        
+
+export const getProductByID = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+
+    if (!product) {
+      // 👉 tests esperan 404 (no validan body)
+      return res.status(404).json({ error: 'Producto no encontrado' });
     }
+
+    // 👉 tests hacen expect(res.body.name)
+    return res.json(product);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Error al obtener producto' });
+  }
+};
+
+
+export const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+
+    if (!product) {
+      return res.status(404).json({ error: 'Producto no encontrado' });
+    }
+
+    await product.update(req.body);
+
+    // 👉 tests leen res.body.name/price
+    return res.json(product);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Error al actualizar producto' });
+  }
+};
+
+
+export const updateAvailability = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+
+    if (!product) {
+      return res.status(404).json({ error: 'Producto no encontrado' });
+    }
+
+    product.availability = !product.availability;
+    await product.save();
+
+
+    return res.json(product);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Error al actualizar availability' });
+  }
+};
+
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deletedCount = await Product.destroy({ where: { id } });
+
+    if (!deletedCount) {
+      return res.status(404).json({ error: 'Producto no encontrado' });
+    }
+
+    return res.json({ message: 'Producto eliminado correctamente' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Error al eliminar producto' });
+  }
 };
