@@ -1,4 +1,5 @@
 const request = require('supertest');
+import products from '../../models/Producto.mo';
 import server from '../../server';
 
 describe('POST /api/products', () => {
@@ -34,6 +35,11 @@ describe('POST /api/products', () => {
 });
 
 describe('GET /api/products', () => {
+  beforeEach(async () => {
+       // Eliminar todos los usuarios antes de cada prueba
+       await products.destroy({ where: {} });
+     });
+     
   it('debe retornar 200', async () => {
     const res = await request(server).get('/api/products');
     expect(res.statusCode).toBe(200);
