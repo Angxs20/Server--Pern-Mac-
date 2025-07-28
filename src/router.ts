@@ -1,5 +1,5 @@
 import  Router  from "express";
-import { createProduct, deleteProductById, getAllProducts, getProductByID, updateAvailabilty, updateProductByID } from './handlers/Producto';
+import { createProduct, deleteProduct, getAllProducts, getProductByID, updateAvailability, updateProduct } from './handlers/Producto';
 import { handleInputErrors } from "./middleware";
 import { body, param } from "express-validator";
 import { isDataType } from "sequelize-typescript";
@@ -18,16 +18,16 @@ router.get('/:id',param('id').isNumeric().isInt().withMessage('Id no es numerico
 
 router.post('/', body('name').notEmpty().withMessage('tonto te falto el nombre'), body('price').notEmpty().withMessage('tonto te falto el precio').isNumeric().withMessage('NO ES EL TIPO DE DATO CORRECTO').custom(value => value>0).withMessage('valor no valido'),handleInputErrors,createProduct)
 
-router.put('/:id',body('name').notEmpty().withMessage('tonto te falto el nombre'), body('price').notEmpty().withMessage('tonto te falto el precio').isNumeric().withMessage('NO ES EL TIPO DE DATO CORRECTO').custom(value => value>0).withMessage('valor no valido'),param('id').isNumeric().isInt().withMessage('Id no es numerico'),handleInputErrors, updateProductByID, (req, res)=>{
+router.put('/:id',body('name').notEmpty().withMessage('tonto te falto el nombre'), body('price').notEmpty().withMessage('tonto te falto el precio').isNumeric().withMessage('NO ES EL TIPO DE DATO CORRECTO').custom(value => value>0).withMessage('valor no valido'),param('id').isNumeric().isInt().withMessage('Id no es numerico'),handleInputErrors, updateProduct, (req, res)=>{
     res.send("Hola desde get by id")
 })
 
  router.patch('/:id',
-    param('id').isInt().withMessage('Id no valido'),handleInputErrors,updateAvailabilty
+    param('id').isInt().withMessage('Id no valido'),handleInputErrors,updateAvailability
  )
 
 
-router.delete('/:id',param('id').isInt().withMessage('Id no valido'),handleInputErrors,updateAvailabilty,deleteProductById,(req,res)=>{
+router.delete('/:id',param('id').isInt().withMessage('Id no valido'),handleInputErrors,updateAvailability,deleteProduct,(req,res)=>{
    
     res.send("Hola desde delete")
 })
