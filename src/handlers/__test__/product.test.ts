@@ -1,6 +1,9 @@
 const request = require('supertest');
+import { describe } from 'node:test';
 import products from '../../models/Producto.mo';
 import server from '../../server';
+import db from '../../config/db';
+import { error } from 'console';
 
 describe('POST /api/products', () => {
   it('debe retornar 400 si el cuerpo está vacío', async () => {
@@ -142,4 +145,14 @@ describe('DELETE /api/products/:id', () => {
     expect(res.statusCode).toBe(200);
     
   });
+
+  
+});
+
+describe('Haciendo nuevas pruebas utiliando el spy', () => {
+  // it('Generar error cuando creamos un producto incorrectamente', async () => {
+  //   jest.spyOn(db,'authenticate')
+  //   .mockRejectedValueOnce(new Error("Hubo un error al generar un producto"))
+  //   const error1 {}
+  // })
 });
