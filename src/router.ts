@@ -57,6 +57,26 @@ const router = Router();
  *                      example: true
  */
 
+/**
+ * 
+ * @swagger
+ * /api/products:
+ *      get:
+ *          summary: Obtener una lista de los productos
+ *          tags:
+ *              - Products
+ *          description: Regresa una lista de productos
+ *          responses:
+ *              200:
+ *                  description: Respuesta exitosa 
+ *                  content:
+ *                      aplication/json:
+ *                          schema:
+ *                              type: array
+ *                              items:
+ *                                  $ref: '#/components/schemas/Product'
+ */
+
 router.get('/', getAllProducts, (req, res) => {
     res.send("Llamando a Routimus Prime")
 })
