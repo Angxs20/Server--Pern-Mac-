@@ -149,10 +149,3 @@ describe('DELETE /api/products/:id', () => {
   
 });
 
-describe('Haciendo nuevas pruebas utiliando el spy', () => {
-  // it('Generar error cuando creamos un producto incorrectamente', async () => {
-  //   jest.spyOn(db,'authenticate')
-  //   .mockRejectedValueOnce(new Error("Hubo un error al generar un producto"))
-  //   const error1 {}
-  // })
-});

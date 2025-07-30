@@ -11,11 +11,11 @@ const option : swaggerJSDoc.Options={
             {
             name: 'Products',
             description: 'Operaciones de API Pern con productos'
-            }
-            // {
-            // name: 'Products',
-            // description: 'Operaciones de API Pern con productos'
-            // }
+            },
+             {
+             name: 'Usuarios',
+             description: 'Operaciones de API Pern con usuarios'
+             }
         ],
         info:{
             title: 'REST API Node.js/ Express / Typescript',

@@ -28,6 +28,33 @@ const router = Router();
  *                      type: boolean
  *                      description: The Product availability
  *                      example: true
+ *          Usuario:
+ *              type: object
+ *              properties:
+ *                  id:
+ *                      type: integer
+ *                      description: El id del usuario
+ *                      example: 1
+ *                  username:
+ *                      type: string
+ *                      description: El nombre del usuario
+ *                      example: Alejandro
+ *                  email:
+ *                      type: string
+ *                      description: el email del usuario
+ *                      example: alealejandroang20@gmail.com
+ *                  password:
+ *                      type: string
+ *                      description: La contraseña del usuario
+ *                      example: salsa12
+ *                  role:
+ *                      type: user
+ *                      description: Define el rol del usuario
+ *                      example: user
+ *                  isActive:
+ *                      type: boolean
+ *                      description: Define si el usuario esta activo o no
+ *                      example: true
  */
 
 router.get('/', getAllProducts, (req, res) => {
