@@ -19,19 +19,19 @@ class User extends Model {
   declare password: string;
 
 
-  @Column({
-    type: DataType.ENUM("user", "admin"),
-  })
   @Default("user")
-    declare role: "user" | "admin";
+@Column({
+  type: DataType.ENUM("user", "admin"),
+})
+declare role: "user" | "admin"
 
 
 
-  @Column({
-    type: DataType.BOOLEAN
-  })
   @Default(true)
-  declare isActive: boolean;
+@Column({
+  type: DataType.BOOLEAN
+})
+declare isActive: boolean;
 
   
 

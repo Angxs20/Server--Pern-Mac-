@@ -3,6 +3,7 @@ import { createProduct, deleteProduct, getAllProducts, getProductByID, updateAva
 import { handleInputErrors } from "./middleware";
 import { body, param } from "express-validator";
 import { isDataType } from "sequelize-typescript";
+import { createUser, deleteUsersById, getAllUsers, getUsersByID, updateAvailabilityu } from "./handlers/Usuario";
 const router = Router();
 
 /**
@@ -77,30 +78,51 @@ const router = Router();
  *                                  $ref: '#/components/schemas/Product'
  */
 
-router.get('/', getAllProducts, (req, res) => {
+router.get('/products', getAllProducts, (req, res) => {
     res.send("Llamando a Routimus Prime")
 })
 //create
 
-router.get('/:id', param('id').isNumeric().isInt().withMessage('Id no es numerico'), handleInputErrors, getProductByID, (req, res) => {
+router.get('/products/:id', param('id').isNumeric().isInt().withMessage('Id no es numerico'), handleInputErrors, getProductByID, (req, res) => {
     res.send("Hola desde get by id")
 })
 
 
-router.post('/', body('name').notEmpty().withMessage('tonto te falto el nombre'), body('price').notEmpty().withMessage('tonto te falto el precio').isNumeric().withMessage('NO ES EL TIPO DE DATO CORRECTO').custom(value => value > 0).withMessage('valor no valido'), handleInputErrors, createProduct)
+router.post('/products', body('name').notEmpty().withMessage('tonto te falto el nombre'), body('price').notEmpty().withMessage('tonto te falto el precio').isNumeric().withMessage('NO ES EL TIPO DE DATO CORRECTO').custom(value => value > 0).withMessage('valor no valido'), handleInputErrors, createProduct)
 
-router.put('/:id', body('name').notEmpty().withMessage('tonto te falto el nombre'), body('price').notEmpty().withMessage('tonto te falto el precio').isNumeric().withMessage('NO ES EL TIPO DE DATO CORRECTO').custom(value => value > 0).withMessage('valor no valido'), param('id').isNumeric().isInt().withMessage('Id no es numerico'), handleInputErrors, updateProduct, (req, res) => {
+router.put('/products/:id', body('name').notEmpty().withMessage('tonto te falto el nombre'), body('price').notEmpty().withMessage('tonto te falto el precio').isNumeric().withMessage('NO ES EL TIPO DE DATO CORRECTO').custom(value => value > 0).withMessage('valor no valido'), param('id').isNumeric().isInt().withMessage('Id no es numerico'), handleInputErrors, updateProduct, (req, res) => {
     res.send("Hola desde get by id")
 })
 
-router.patch('/:id',
+router.patch('/products/:id',
     param('id').isInt().withMessage('Id no valido'), handleInputErrors, updateAvailability
 )
 
 
 
-router.delete('/:id', param('id').isInt().withMessage('Id no valido'), handleInputErrors, updateAvailability, deleteProduct, (req, res) => {
+router.delete('/products/:id', param('id').isInt().withMessage('Id no valido'), handleInputErrors, updateAvailability, deleteProduct, (req, res) => {
 
+    res.send("Hola desde delete")
+})
+
+
+router.get('/users', getAllUsers, (req,res) =>{
+    res.send("Llamando a todos los usuarios")
+} )
+
+router.get('/users/:id', param('id').isNumeric().isInt().withMessage('Id no es numerico'), handleInputErrors, getUsersByID, (req, res) => {
+    res.send("Hola desde get by id")
+})
+
+router.post('/users', body('username').notEmpty().withMessage('tonto te falto el nombre'), body('email').notEmpty().withMessage('tonto te falto el email'), body('password').notEmpty().withMessage('Tonto falto la contrasenia'), handleInputErrors, createUser)
+
+router.patch('/users/:id',
+    param('id').isInt().withMessage('Id no valido'), handleInputErrors, updateAvailabilityu
+)
+
+
+
+router.delete('/users/:id', param('id').isInt().withMessage('Id no valido'), handleInputErrors, updateAvailabilityu, deleteUsersById, (req, res) => {
     res.send("Hola desde delete")
 })
 export default router

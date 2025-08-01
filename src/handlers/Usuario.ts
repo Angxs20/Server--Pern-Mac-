@@ -13,8 +13,8 @@ export const createUser = async (req: Request, res: Response) => {
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.findAll({
-      order: [["price", "DESC"]],
-    });
+      order: [["users","email", "password", "role", "isActive"]], 
+    }); 
     if (users.length === 0) {
       return res.status(404).json({ error: "No hay useros" });
     }
@@ -29,7 +29,7 @@ export const getUsersByID = async (req: Request, res: Response) => {
   const { id } = req.params;
   const user = await User.findByPk(id);
   if (!user) {
-    return res.status(404).json({ error: "No existe el usero" });
+    return res.status(404).json({ error: "No existe el user" });
   }
   res.json({ data: user });
   //res.send("Hola desde get by id")
@@ -45,7 +45,7 @@ export const updateUsersByID = async (req: Request, res: Response) => {
   if (!user) {
     return res
       .status(404)
-      .json({ error: "No existe el usero", data: user });
+      .json({ error: "No existe el user", data: user });
   }
   //actualizar
   await user.update(req.body);
@@ -66,7 +66,7 @@ export const deleteUsersById = async (req: Request, res: Response) => {
   //res.send("Hola desde delete")
 };
 
-export const updateAvailability = async (req: Request, res: Response) => {
+export const updateAvailabilityu = async (req: Request, res: Response) => {
     const { id } = req.params;
   const user = await User.findByPk(id);
   if (!user) {
