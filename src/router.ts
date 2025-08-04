@@ -78,6 +78,79 @@ const router = Router();
  *                                  $ref: '#/components/schemas/Product'
  */
 
+/**
+ * 
+ * @swagger
+ * /api/products/{id}:
+ *      get:
+ *          summary: Obtener un producto por id
+ *          tags:
+ *              - Products
+ *          description: Regresa un producto
+ * 
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                description: El ID del producto a consultar
+ *                required: true
+ *                schema:
+ *                  type: integer
+ * 
+ *          responses:
+ *
+ *              200:
+ *                  description: Respuesta exitosa 
+ *                  content:
+ *                      aplication/json:
+ *                          schema:
+ *                              type: array
+ *                              items:
+ *                                  $ref: '#/components/schemas/Product'
+ *              404:
+ *                  description: No encontrado
+ *              400:
+ *                  description: Solicitud erronea - ID invalido
+ * 
+ */
+
+
+/**
+ * @swagger
+ * /api/products:
+ *       post:
+ *          summary: Crea un nuevo producto
+ *          tags: 
+ *              - Products
+ *          description: Retorna un nuevo registro en la base de datos
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              name:
+ *                                  type: string
+ *                                  example: "Monitor Curvo de 49 pulgadas"
+ *                              price:
+ *                                  type: number
+ *                                  example: 500
+ *                              availability:
+ *                                  type: boolean
+ *                                  example: true              
+ *  
+ *          responses:
+ *              201:
+ *                  description: Respuesta Exitosa
+ *                  content:
+ *                      application/json:
+ *                        schema:
+ *                          $ref: '#/components/schemas/Product'
+ *              400:
+ *                  description: Mala respuesta - Datos ivalidos
+ *                  
+ */
+
 router.get('/products', getAllProducts, (req, res) => {
     res.send("Llamando a Routimus Prime")
 })
@@ -126,3 +199,6 @@ router.delete('/users/:id', param('id').isInt().withMessage('Id no valido'), han
     res.send("Hola desde delete")
 })
 export default router
+
+
+//Tarea lo mismo que hicimos ahorita de productos pero para usuarios
