@@ -151,6 +151,98 @@ const router = Router();
  *                  
  */
 
+/**
+ * 
+ * @swagger
+ * /api/users:
+ *      get:
+ *          summary: Obtener una lista de usuarios
+ *          tags:
+ *              - Users
+ *          description: Regresa una lista de usuarios
+ *          responses:
+ *              200:
+ *                  description: Respuesta exitosa 
+ *                  content:
+ *                      aplication/json:
+ *                          schema:
+ *                              type: array
+ *                              items:
+ *                                  $ref: '#/components/schemas/Usuario'
+ */
+
+/**
+ * 
+ * @swagger
+ * /api/users/{id}:
+ *      get:
+ *          summary: Obtener un usuario por id
+ *          tags:
+ *              - Users
+ *          description: Regresa un usuario
+ * 
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                description: El ID del usuario a consultar
+ *                required: true
+ *                schema:
+ *                  type: integer
+ * 
+ *          responses:
+ *
+ *              200:
+ *                  description: Respuesta exitosa 
+ *                  content:
+ *                      aplication/json:
+ *                          schema:
+ *                              type: array
+ *                              items:
+ *                                  $ref: '#/components/schemas/Usuario'
+ *              404:
+ *                  description: No encontrado
+ *              400:
+ *                  description: Solicitud erronea - ID invalido
+ * 
+ */
+
+/**
+ * @swagger
+ * /api/users:
+ *       post:
+ *          summary: Crea un nuevo usuario
+ *          tags: 
+ *              - Users
+ *          description: Retorna un nuevo registro en la base de datos
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              username:
+ *                                  type: string
+ *                                  example: "Carlitos Peña"
+ *                              email:
+ *                                  type: string
+ *                                  example: "CarlosRodolfoRicardoPeña@gmail.com"
+ *                              password:
+ *                                  type: string
+ *                                  example: "Carlos1234"              
+ *  
+ *          responses:
+ *              201:
+ *                  description: Respuesta Exitosa
+ *                  content:
+ *                      application/json:
+ *                        schema:
+ *                          $ref: '#/components/schemas/Usuario'
+ *              400:
+ *                  description: Mala respuesta - Datos ivalidos
+ *                  
+ */
+
 router.get('/products', getAllProducts, (req, res) => {
     res.send("Llamando a Routimus Prime")
 })
