@@ -122,6 +122,7 @@ const router = Router();
  *          tags: 
  *              - Products
  *          description: Retorna un nuevo registro en la base de datos
+ *          
  *          requestBody:
  *              required: true
  *              content:
@@ -138,6 +139,50 @@ const router = Router();
  *                              availability:
  *                                  type: boolean
  *                                  example: true              
+ *  
+ *          responses:
+ *              201:
+ *                  description: Respuesta Exitosa
+ *                  content:
+ *                      application/json:
+ *                        schema:
+ *                          $ref: '#/components/schemas/Product'
+ *              400:
+ *                  description: Mala respuesta - Datos ivalidos
+ *                  
+ */
+
+/**
+ * @swagger
+ * /api/products/{id}:
+ *       put:
+ *          summary: Modifica un producto
+ *          tags: 
+ *              - Products
+ *          description: Modifica un registro dentro de la base de datos
+ * 
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                description: El ID del producto a consultar
+ *                required: true
+ *                schema:
+ *                  type: integer
+ * 
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              name:
+ *                                  type: string
+ *                                  example: "Monitor Cuervos de 49 pulgadas"
+ *                              price:
+ *                                  type: number
+ *                                  example: 500
+ *                                          
  *  
  *          responses:
  *              201:
@@ -255,45 +300,6 @@ router.get('/products/:id', param('id').isNumeric().isInt().withMessage('Id no e
 
 router.post('/products', body('name').notEmpty().withMessage('tonto te falto el nombre'), body('price').notEmpty().withMessage('tonto te falto el precio').isNumeric().withMessage('NO ES EL TIPO DE DATO CORRECTO').custom(value => value > 0).withMessage('valor no valido'), handleInputErrors, createProduct)
 
-
-
-
-/**
- * @swagger
- * /api/users:
- *       post:
- *          summary: Crea un nuevo usuario
- *          tags: 
- *              - Users
- *          description: Retorna un nuevo registro en la base de datos
- *          requestBody:
- *              required: true
- *              content:
- *                  application/json:
- *                      schema:
- *                          type: object
- *                          properties:
- *                              username:
- *                                  type: string
- *                                  example: "Carlitos Peña"
- *                              email:
- *                                  type: string
- *                                  example: "CarlosRodolfoRicardoPeña@gmail.com"
- *                              password:
- *                                  type: string
- *                                  example: "Carlos1234"              
- *  
- *          responses:
- *              201:
- *                  description: Respuesta Exitosa
- *                  content:
- *                      application/json:
- *                        schema:
- *                          $ref: '#/components/schemas/Usuario'
- *              400:
- *                  description: Mala respuesta - Datos ivalidos
- *                  
- */
 
 router.put('/products/:id', body('name').notEmpty().withMessage('tonto te falto el nombre'), body('price').notEmpty().withMessage('tonto te falto el precio').isNumeric().withMessage('NO ES EL TIPO DE DATO CORRECTO').custom(value => value > 0).withMessage('valor no valido'), param('id').isNumeric().isInt().withMessage('Id no es numerico'), handleInputErrors, updateProduct, (req, res) => {
     res.send("Hola desde get by id")
