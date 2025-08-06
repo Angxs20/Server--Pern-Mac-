@@ -197,6 +197,73 @@ const router = Router();
  */
 
 /**
+ * @swagger
+ * /api/products/{id}:
+ *       patch:
+ *          summary: Modifica un espacio de un producto
+ *          tags: 
+ *              - Products
+ *          description: Modifica un dato del registro dentro de la base de datos
+ * 
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                description: El ID del producto a consultar
+ *                required: true
+ *                schema:
+ *                  type: integer
+ * 
+ *  
+ *          responses:
+ *              201:
+ *                  description: Respuesta Exitosa
+ *                  content:
+ *                      application/json:
+ *                        schema:
+ *                          $ref: '#/components/schemas/Product'
+ *              400:
+ *                  description: Mala respuesta - Datos ivalidos
+ *                  
+ */
+
+
+/**
+ * 
+ * @swagger
+ * /api/products/{id}:
+ *      delete:
+ *          summary: Borrar un producto mediante el id
+ *          tags:
+ *              - Products
+ *          description: Borra un producto
+ * 
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                description: El ID del producto a consultar
+ *                required: true
+ *                schema:
+ *                  type: integer
+ * 
+ *          responses:
+ *
+ *              200:
+ *                  description: Respuesta exitosa 
+ *                  content:
+ *                      aplication/json:
+ *                          schema:
+ *                              type: array
+ *                              items:
+ *                                  $ref: '#/components/schemas/Product'
+ *              404:
+ *                  description: No encontrado
+ *              400:
+ *                  description: Solicitud erronea - ID invalido
+ * 
+ */
+
+
+/**
  * 
  * @swagger
  * /api/users:
